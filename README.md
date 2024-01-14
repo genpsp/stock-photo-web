@@ -20,6 +20,8 @@ $ yarn install
 $ yarn dev
 ```
 
+起動したら http://localhost:3000 でアクセス
+
 ## Open API コード自動生成
 
 本プロジェクトでは、バックエンドとの連携のため Open API (swagger) を用いた自動生成コードを使用しています
