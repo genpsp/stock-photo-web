@@ -14,6 +14,10 @@
     "api:fetch": "gh api -H 'Accept: application/vnd.github.v3.raw' 'repos/genpsp/stock-photo-api/contents/docs/swagger.yaml?ref=main' > src/orval/swagger.yaml && prettier --write src/orval/swagger.yaml"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@tanstack/react-query": "^5.17.10",
+    "axios": "^1.6.5",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
