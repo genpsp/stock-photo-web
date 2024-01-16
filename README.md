@@ -4,6 +4,16 @@
 
 ## 構築手順
 
+### .envファイルの配置
+
+プロジェクトルートに `.env.local` を作成し、下記リンク先のシークレットの中身をコピペする
+
+```
+$ touch .env.local
+```
+
+[WEB_ENV_LOCAL](https://console.cloud.google.com/security/secret-manager/secret/WEB_ENV_LOCAL/versions?hl=ja&project=stock-photo-test)
+
 ### module インストール
 
 プロジェクトルートでコマンド実行
