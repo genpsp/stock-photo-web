@@ -2,6 +2,7 @@ import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import CameraIcon from '@mui/icons-material/PhotoCamera'
+import AddIcon from '@mui/icons-material/AddCircle'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
@@ -15,6 +16,9 @@ import Container from '@mui/material/Container'
 import Link from '@mui/material/Link'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import SearchBar from '@/components/parts/SearchBar'
+import IconButton from '@mui/material/IconButton'
+import { grey } from '@mui/material/colors'
+import { useRouter } from 'next/router'
 
 function Copyright() {
   return (
@@ -33,15 +37,30 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const defaultTheme = createTheme()
 
 export default function Album() {
+  const router = useRouter()
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <AppBar position="relative" color="transparent">
-        <Toolbar variant="dense">
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
+        <Toolbar>
+          <CameraIcon sx={{ mr: 2, color: 'white' }} />
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1, color: 'white' }}
+          >
             StockPhoto
           </Typography>
+          <Button
+            sx={{ color: 'white' }}
+            variant="outlined"
+            startIcon={<AddIcon />}
+            onClick={() => router.push('/images/register')}
+          >
+            アップロード
+          </Button>
         </Toolbar>
       </AppBar>
       <main>

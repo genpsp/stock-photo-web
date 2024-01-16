@@ -12,7 +12,7 @@ export default function SearchBar() {
     <Paper
       component="form"
       sx={{
-        p: '0px 8px',
+        p: '2px 8px',
         display: 'flex',
         alignItems: 'center',
         borderRadius: '25px',
