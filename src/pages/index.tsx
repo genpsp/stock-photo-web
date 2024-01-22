@@ -1,15 +1,14 @@
-import * as React from 'react'
+import DefaultLayout from '@/components/layouts/default'
 import SearchBar from '@/components/parts/SearchBar'
 import {
-  Typography,
   Box,
+  Card,
+  CardContent,
+  CardMedia,
   Container,
   Grid,
-  Card,
-  CardMedia,
-  CardContent,
+  Typography,
 } from '@mui/material'
-import DefaultLayout from '@/components/layouts/default'
 import { ReactElement } from 'react'
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { Typography, Box, Link } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 
 function Copyright() {
   return (

@@ -1,7 +1,6 @@
-import * as React from 'react'
-import { AppBar, Toolbar, Typography, Button } from '@mui/material'
-import CameraIcon from '@mui/icons-material/PhotoCamera'
 import AddIcon from '@mui/icons-material/AddCircle'
+import CameraIcon from '@mui/icons-material/PhotoCamera'
+import { AppBar, Button, Toolbar, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 export default function Navbar() {
