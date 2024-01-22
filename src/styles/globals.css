@@ -12,9 +12,6 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-image: url('../../public/top_background.png');
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 a {
