@@ -23,9 +23,6 @@ const theme = createTheme({
     ui: {
       main: '#FFF',
     },
-    text: {
-      secondary: '#FFF',
-    },
   },
 })
 
