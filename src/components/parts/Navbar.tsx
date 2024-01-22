@@ -9,17 +9,16 @@ export default function Navbar() {
   return (
     <AppBar position="relative">
       <Toolbar>
-        <CameraIcon sx={{ mr: 2, color: 'white' }} />
+        <CameraIcon sx={{ mr: 2 }} />
         <Typography
           variant="h6"
-          color="inherit"
           noWrap
-          sx={{ flexGrow: 1, color: 'white' }}
+          sx={{ flexGrow: 1, color: 'text.secondary' }}
         >
           StockPhoto
         </Typography>
         <Button
-          sx={{ color: 'white' }}
+          color="ui"
           variant="outlined"
           startIcon={<AddIcon />}
           onClick={() => router.push('/images/register')}

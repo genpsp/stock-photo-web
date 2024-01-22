@@ -1,7 +1,8 @@
 import { app } from '@/lib/firebase/init'
 import '@/styles/globals.css'
-import { ThemeProvider } from '@emotion/react'
-import { CssBaseline, createTheme } from '@mui/material'
+import theme from '@/styles/theme'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
@@ -16,13 +17,12 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const firebaseApp = app
-  const defaultTheme = createTheme()
   const getLayout = Component.getLayout ?? ((page) => page)
 
-  return getLayout(
-    <ThemeProvider theme={defaultTheme}>
+  return (
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>,
+      {getLayout(<Component {...pageProps} />)}
+    </ThemeProvider>
   )
 }
