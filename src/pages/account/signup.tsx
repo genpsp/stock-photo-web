@@ -47,7 +47,7 @@ export default function SignUp() {
               required
               fullWidth
               id="firstName"
-              label="First Name"
+              label="姓"
               autoFocus
             />
           </Grid>
@@ -56,7 +56,7 @@ export default function SignUp() {
               required
               fullWidth
               id="lastName"
-              label="Last Name"
+              label="名"
               name="lastName"
               autoComplete="family-name"
             />
@@ -66,7 +66,7 @@ export default function SignUp() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="メールアドレス"
               name="email"
               autoComplete="email"
             />
@@ -76,7 +76,7 @@ export default function SignUp() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="パスワード"
               type="password"
               id="password"
               autoComplete="new-password"
@@ -95,14 +95,16 @@ export default function SignUp() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          サインアップ
         </Button>
 
         <Grid container justifyContent="flex-end">
           <Grid item>
+            すでにアカウントをお持ちですか？
             <Link href="#" variant="body2">
-              Already have an account? Sign in
+              ログイン
             </Link>
+            する
           </Grid>
         </Grid>
       </Box>
