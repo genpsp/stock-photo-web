@@ -1,6 +1,6 @@
 import Footer from '@/components/parts/Footer'
 import Navbar from '@/components/parts/Navbar'
-import { css } from '@emotion/react'
+import { css } from '@mui/material'
 import { ReactNode } from 'react'
 
 type Props = {
