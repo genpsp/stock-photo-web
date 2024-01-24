@@ -10,51 +10,68 @@ import type {
   MutationFunction,
   UseMutationOptions,
 } from '@tanstack/react-query'
-import axios from 'axios'
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { EchoHTTPError } from '../model/echoHTTPError'
 import type { PostApiImagesUploadBody } from '../model/postApiImagesUploadBody'
+import { customAxiosInstance } from '../../../lib/axios/init'
+import type { ErrorType, BodyType } from '../../../lib/axios/init'
+
+// eslint-disable-next-line
+type SecondParameter<T extends (...args: any) => any> = T extends (
+  config: any,
+  args: infer P,
+) => any
+  ? P
+  : never
 
 /**
  * リクエストされた画像をGCSにアップロードする
  * @summary 画像アップロード
  */
 export const postApiImagesUpload = (
-  postApiImagesUploadBody: PostApiImagesUploadBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<void>> => {
+  postApiImagesUploadBody: BodyType<PostApiImagesUploadBody>,
+  options?: SecondParameter<typeof customAxiosInstance>,
+) => {
   const formData = new FormData()
+  formData.append('title', postApiImagesUploadBody.title)
   formData.append('file', postApiImagesUploadBody.file)
 
-  return axios.post(`/api/images/upload`, formData, options)
+  return customAxiosInstance<void>(
+    {
+      url: `/api/images/upload`,
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data' },
+      data: formData,
+    },
+    options,
+  )
 }
 
 export const getPostApiImagesUploadMutationOptions = <
-  TError = AxiosError<EchoHTTPError>,
+  TError = ErrorType<EchoHTTPError>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postApiImagesUpload>>,
     TError,
-    { data: PostApiImagesUploadBody },
+    { data: BodyType<PostApiImagesUploadBody> },
     TContext
   >
-  axios?: AxiosRequestConfig
+  request?: SecondParameter<typeof customAxiosInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof postApiImagesUpload>>,
   TError,
-  { data: PostApiImagesUploadBody },
+  { data: BodyType<PostApiImagesUploadBody> },
   TContext
 > => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof postApiImagesUpload>>,
-    { data: PostApiImagesUploadBody }
+    { data: BodyType<PostApiImagesUploadBody> }
   > = (props) => {
     const { data } = props ?? {}
 
-    return postApiImagesUpload(data, axiosOptions)
+    return postApiImagesUpload(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -63,23 +80,23 @@ export const getPostApiImagesUploadMutationOptions = <
 export type PostApiImagesUploadMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiImagesUpload>>
 >
-export type PostApiImagesUploadMutationBody = PostApiImagesUploadBody
-export type PostApiImagesUploadMutationError = AxiosError<EchoHTTPError>
+export type PostApiImagesUploadMutationBody = BodyType<PostApiImagesUploadBody>
+export type PostApiImagesUploadMutationError = ErrorType<EchoHTTPError>
 
 /**
  * @summary 画像アップロード
  */
 export const usePostApiImagesUpload = <
-  TError = AxiosError<EchoHTTPError>,
+  TError = ErrorType<EchoHTTPError>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof postApiImagesUpload>>,
     TError,
-    { data: PostApiImagesUploadBody },
+    { data: BodyType<PostApiImagesUploadBody> },
     TContext
   >
-  axios?: AxiosRequestConfig
+  request?: SecondParameter<typeof customAxiosInstance>
 }) => {
   const mutationOptions = getPostApiImagesUploadMutationOptions(options)
 

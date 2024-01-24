@@ -9,4 +9,6 @@
 export type PostApiImagesUploadBody = {
   /** 画像ファイル */
   file: Blob
+  /** 画像タイトル */
+  title: string
 }
