@@ -1,9 +1,11 @@
 import { postApiImagesUpload } from '@/orval/generated/images/images'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
+import CloseIcon from '@mui/icons-material/Close'
 import {
   Box,
   Button,
   Grid,
+  IconButton,
   InputAdornment,
   TextField,
   css,
@@ -47,6 +49,12 @@ export default function UploadForm() {
 
   const handleFileInputClick = () => {
     fileInputRef.current?.click()
+  }
+
+  const initFile = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    setImageData('')
+    setFileName('')
   }
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -109,6 +117,11 @@ export default function UploadForm() {
                 <InputAdornment position="start">
                   <AttachFileIcon />
                 </InputAdornment>
+              ),
+              endAdornment: imageData && (
+                <IconButton onClick={initFile}>
+                  <CloseIcon />
+                </IconButton>
               ),
             }}
           />

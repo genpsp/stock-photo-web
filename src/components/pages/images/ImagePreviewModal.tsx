@@ -42,5 +42,4 @@ const closeButtonStyle = css`
   position: absolute;
   top: 8px;
   right: 8px;
-  color: #000;
 `
