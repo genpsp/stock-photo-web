@@ -154,7 +154,7 @@ export default function UploadForm() {
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || !imageData}
               variant="contained"
               sx={{ mt: 2 }}
             >
