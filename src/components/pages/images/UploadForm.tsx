@@ -11,6 +11,7 @@ import {
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import ImagePreviewModal from './ImagePreviewModal'
 
 type Inputs = {
   title: string
@@ -21,12 +22,13 @@ export default function UploadForm() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [imageData, setImageData] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isValid, errors },
   } = useForm<Inputs>()
+
   const { ref, onChange, ...rest } = register('file', {
     required: 'ファイルを選択してください',
   })
@@ -49,7 +51,6 @@ export default function UploadForm() {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const file: File | null = data.file && data.file[0]
-
     try {
       postApiImagesUpload({
         title: data.title,
@@ -64,7 +65,7 @@ export default function UploadForm() {
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      sx={{ px: 2, pt: 2 }}
+      sx={{ px: 2, pt: 1 }}
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -81,18 +82,14 @@ export default function UploadForm() {
         </Grid>
         <Grid item xs={12}>
           {imageData && (
-            <Image
-              src={imageData}
-              width={100}
-              height={100}
-              objectFit="contain"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-              }}
-              alt=""
-            />
+            <div css={imagePreviewStyle} onClick={() => setModalOpen(true)}>
+              <Image
+                src={imageData}
+                fill
+                objectFit="contain"
+                alt="プレビュー画像"
+              />
+            </div>
           )}
         </Grid>
         <Grid item xs={12}>
@@ -153,10 +150,22 @@ export default function UploadForm() {
           </Box>
         </Grid>
       </Grid>
+      <ImagePreviewModal
+        isOpen={modalOpen}
+        handleClose={() => setModalOpen(false)}
+      >
+        <Image src={imageData} fill objectFit="contain" alt="プレビュー画像" />
+      </ImagePreviewModal>
     </Box>
   )
 }
 
 const hiddenStyle = css`
   display: none;
+`
+
+const imagePreviewStyle = css`
+  position: relative;
+  max-width: 100%;
+  height: 40vh;
 `
