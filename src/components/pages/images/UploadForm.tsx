@@ -94,7 +94,7 @@ export default function UploadForm() {
               <Image
                 src={imageData}
                 fill
-                objectFit="contain"
+                style={{ objectFit: 'contain' }}
                 alt="プレビュー画像"
               />
             </div>
@@ -167,7 +167,12 @@ export default function UploadForm() {
         isOpen={modalOpen}
         handleClose={() => setModalOpen(false)}
       >
-        <Image src={imageData} fill objectFit="contain" alt="プレビュー画像" />
+        <Image
+          src={imageData}
+          fill
+          style={{ objectFit: 'contain' }}
+          alt="プレビュー画像"
+        />
       </ImagePreviewModal>
     </Box>
   )
