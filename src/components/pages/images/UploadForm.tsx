@@ -32,7 +32,7 @@ export default function UploadForm() {
   } = useForm<Inputs>()
 
   const { ref, onChange, ...rest } = register('file', {
-    required: 'ファイルを選択してください',
+    required: 'ファイルを選択してくださいaa',
   })
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
