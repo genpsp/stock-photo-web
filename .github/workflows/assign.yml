@@ -6,7 +6,7 @@ on:
 
 permissions:
   pull-requests: write
-  repository-projects: read
+  repository-projects: readaaa
 
 jobs:
   assign:
