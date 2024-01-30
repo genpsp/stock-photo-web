@@ -7,95 +7,132 @@ import {
   Grid,
   Link,
   TextField,
+  Typography,
 } from '@mui/material';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 type Inputs = {
-  title: string
-  file: FileList
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  agreement: boolean
 }
 
 export default function SignupForm() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const email = data.get('email')
-    const password = data.get('password')
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<Inputs>()
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const email = data.email
+    const password = data.password
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log('サインアップしました')
-        // Signed in 
-        const user = userCredential.user
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log('サインアップエラー',errorCode)
-      });
+    .then((userCredential) => {
+      console.log('サインアップしました')
+      const user = userCredential.user
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.log('サインアップエラー',errorCode)
+    });
     console.log({
       email,
       password
-      // email: data.get('email'),
-      // password: data.get('password'),
     })
   }
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+    <Box 
+      component="form" 
+      onSubmit={handleSubmit(onSubmit)} 
+      sx={{ mt: 3 }}
+    >
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
         <TextField
-          autoComplete="given-name"
-          name="firstName"
-          required
-          fullWidth
-          id="firstName"
+          autoComplete="family-name"
           label="姓"
+          fullWidth
+          id="lastName"
+          {...register('lastName', {
+            required: true
+            })
+          }
           autoFocus
         />
       </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
-          required
           fullWidth
-          id="lastName"
+          id="firstName"
           label="名"
-          name="lastName"
-          autoComplete="family-name"
+          autoComplete="given-name"
+          {...register('firstName', {
+            required: true
+            })
+          }
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
-          required
           fullWidth
           id="email"
           label="メールアドレス"
-          name="email"
           autoComplete="email"
+          {...register('email', {
+            required: true,
+            pattern: {
+              value: /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
+              message: "入力形式がメールアドレスではありません。"
+            }
+            })
+          }
         />
       </Grid>
       <Grid item xs={12}>
         <TextField
-          required
           fullWidth
-          name="password"
           label="パスワード"
           type="password"
           id="password"
           autoComplete="new-password"
+          {...register('password', {
+            required: true,
+            minLength: {
+              value: 6,
+              message:'パスワードは6文字以上で入力してください'
+            },
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d).+$/,
+              message:'パスワードには英字と数字をを含めてください'
+            },
+            })
+          }
         />
+        {errors?.password && <Typography>{errors.password.message}</Typography>}
       </Grid>
       <Grid item xs={12}>
-        <FormControlLabel
-          control={<Checkbox value="allowExtraEmails" color="primary" />}
+        <FormControlLabel sx={{mt: 2}}
+          control={<Checkbox color="primary" />}
           label="利用規約とプライバシーポリシーに同意する"
+          {...register('agreement', {
+            required: true
+            })
+          }
         />
       </Grid>
-    </Grid>
+  </Grid>
     <Button
       type="submit"
       fullWidth
       variant="contained"
       sx={{ mt: 3, mb: 2 }}
+      disabled={!isValid}
     >
       サインアップ
     </Button>
