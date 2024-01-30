@@ -58,6 +58,7 @@ export default function SignupForm() {
           autoComplete="family-name"
           label="姓"
           fullWidth
+          required
           id="lastName"
           {...register('lastName', {
             required: true
@@ -71,6 +72,7 @@ export default function SignupForm() {
           fullWidth
           id="firstName"
           label="名"
+          required
           autoComplete="given-name"
           {...register('firstName', {
             required: true
@@ -84,6 +86,7 @@ export default function SignupForm() {
           id="email"
           label="メールアドレス"
           autoComplete="email"
+          required
           {...register('email', {
             required: true,
             pattern: {
@@ -101,6 +104,7 @@ export default function SignupForm() {
           type="password"
           id="password"
           autoComplete="new-password"
+          required
           {...register('password', {
             required: true,
             minLength: {
