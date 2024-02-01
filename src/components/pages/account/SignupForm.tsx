@@ -23,11 +23,8 @@ export default function SignupForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isValid, errors },
   } = useForm<Inputs>({ mode: 'onChange' })
-
-  const watchPassword = watch('password')
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
@@ -87,9 +84,7 @@ export default function SignupForm() {
             type="password"
             autoComplete="new-password"
             required
-            helperText={
-              watchPassword && errors.password && errors.password.message
-            }
+            helperText={errors.password && errors.password.message}
             {...register('password', {
               required: true,
               minLength: {
