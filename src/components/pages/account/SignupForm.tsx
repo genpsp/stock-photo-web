@@ -24,7 +24,7 @@ export default function SignupForm() {
     register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<Inputs>()
+  } = useForm<Inputs>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
