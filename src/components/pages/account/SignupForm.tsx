@@ -47,7 +47,15 @@ export default function SignupForm() {
             fullWidth
             required
             autoFocus
-            {...register('lastName', { required: true })}
+            error={'lastName' in errors}
+            helperText={errors.lastName && errors.lastName.message}
+            {...register('lastName', {
+              required: true,
+              maxLength: {
+                value: 10,
+                message: '10文字以内にしてください',
+              },
+            })}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -57,7 +65,15 @@ export default function SignupForm() {
             label="名"
             required
             autoComplete="given-name"
-            {...register('firstName', { required: true })}
+            error={'firstName' in errors}
+            helperText={errors.firstName && errors.firstName.message}
+            {...register('firstName', {
+              required: true,
+              maxLength: {
+                value: 10,
+                message: '10文字以内にしてください',
+              },
+            })}
           />
         </Grid>
         <Grid item xs={12}>
@@ -67,6 +83,8 @@ export default function SignupForm() {
             label="メールアドレス"
             autoComplete="email"
             required
+            error={'email' in errors}
+            helperText={errors.email && errors.email.message}
             {...register('email', {
               required: true,
               pattern: {
@@ -84,6 +102,7 @@ export default function SignupForm() {
             type="password"
             autoComplete="new-password"
             required
+            error={'password' in errors}
             helperText={errors.password && errors.password.message}
             {...register('password', {
               required: true,
