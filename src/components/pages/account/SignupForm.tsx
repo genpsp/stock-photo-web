@@ -52,8 +52,8 @@ export default function SignupForm() {
             {...register('lastName', {
               required: true,
               maxLength: {
-                value: 10,
-                message: '10文字以内にしてください',
+                value: 20,
+                message: '上限は20文字です',
               },
             })}
           />
@@ -70,8 +70,8 @@ export default function SignupForm() {
             {...register('firstName', {
               required: true,
               maxLength: {
-                value: 10,
-                message: '10文字以内にしてください',
+                value: 20,
+                message: '上限は20文字です',
               },
             })}
           />
