@@ -1,8 +1,8 @@
-name: Assign
+name: Auto Assign
 
 on:
   pull_request:
-    types: opened
+    types: [opened]
 
 permissions:
   pull-requests: write
