@@ -14,6 +14,9 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ImagePreviewModal from './ImagePreviewModal'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import LoadingModal from '@/components/parts/LoadingModal'
 
 type Inputs = {
   title: string
@@ -21,6 +24,7 @@ type Inputs = {
 }
 
 export default function UploadForm() {
+  const router = useRouter()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [fileName, setFileName] = useState('')
   const [imageData, setImageData] = useState('')
@@ -57,16 +61,17 @@ export default function UploadForm() {
     setFileName('')
   }
 
+  const uploadImageMutation = useMutation({
+    mutationFn: postApiImagesUpload,
+    onError: (e) => console.log(e),
+  })
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const file: File | null = data.file && data.file[0]
-    try {
-      postApiImagesUpload({
-        title: data.title,
-        file: file,
-      })
-    } catch (e) {
-      console.log(e)
-    }
+    uploadImageMutation.mutate({
+      title: data.title,
+      file: file,
+    })
   }
 
   return (
@@ -174,6 +179,11 @@ export default function UploadForm() {
           alt="プレビュー画像"
         />
       </ImagePreviewModal>
+      <LoadingModal
+        isLoading={uploadImageMutation.isPending}
+        isSuccess={uploadImageMutation.isSuccess}
+        closeCallback={() => router.push('/')}
+      />
     </Box>
   )
 }
