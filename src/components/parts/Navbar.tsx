@@ -47,7 +47,7 @@ export default function Navbar() {
           }}
         >
           <IconButton>
-            <Avatar src="/images/example.jpg" />
+            <Avatar />
           </IconButton>
         </Tooltip>
       </Toolbar>

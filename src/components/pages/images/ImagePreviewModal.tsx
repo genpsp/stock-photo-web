@@ -14,7 +14,7 @@ export default function ImagePreviewModal({
   handleClose,
 }: Props) {
   return (
-    <Modal open={isOpen} onClose={handleClose} closeAfterTransition>
+    <Modal open={isOpen} onClose={handleClose}>
       <Fade in={isOpen} timeout={300}>
         <Box css={modalStyle}>
           {children}
