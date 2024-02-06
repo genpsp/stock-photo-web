@@ -5,8 +5,8 @@ export default function Footer() {
     <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
       <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
+        <Link color="inherit" href="/">
+          Suginami Engineering Office
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

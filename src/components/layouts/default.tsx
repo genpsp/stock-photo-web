@@ -21,4 +21,5 @@ const mainStyle = css`
   background-image: url('/top_background.png');
   background-size: contain;
   background-repeat: no-repeat;
+  min-height: 100vw;
 `
