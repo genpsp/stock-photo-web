@@ -3,7 +3,6 @@ import AttachFileIcon from '@mui/icons-material/AttachFile'
 import CloseIcon from '@mui/icons-material/Close'
 import {
   Alert,
-  AlertTitle,
   Box,
   Button,
   Grid,
@@ -14,7 +13,7 @@ import {
   css,
 } from '@mui/material'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ImagePreviewModal from './ImagePreviewModal'
 import { useMutation } from '@tanstack/react-query'
@@ -39,6 +38,21 @@ export default function UploadForm() {
     formState: { isValid, errors },
   } = useForm<Inputs>()
 
+  const uploadImageMutation = useMutation({
+    mutationFn: postApiImagesUpload,
+  })
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const file: File | null = data.file && data.file[0]
+    uploadImageMutation.mutate(
+      {
+        title: data.title,
+        file: file,
+      },
+      { onError: () => setSnackbarOpen(true) },
+    )
+  }
+
   const { ref, onChange, ...rest } = register('file', {
     required: 'ファイルを選択してください',
   })
@@ -55,31 +69,10 @@ export default function UploadForm() {
     }
   }
 
-  const handleFileInputClick = () => {
-    fileInputRef.current?.click()
-  }
-
   const initFile = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     setImageData('')
     setFileName('')
-  }
-
-  const uploadImageMutation = useMutation({
-    mutationFn: postApiImagesUpload,
-    onError: (e) => console.log(e),
-  })
-
-  useEffect(() => {
-    setSnackbarOpen(uploadImageMutation.isError)
-  }, [uploadImageMutation.isError])
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const file: File | null = data.file && data.file[0]
-    uploadImageMutation.mutate({
-      title: data.title,
-      file: file,
-    })
   }
 
   return (
@@ -124,7 +117,7 @@ export default function UploadForm() {
             required
             error={'file' in errors}
             helperText={errors.file?.message}
-            onClick={handleFileInputClick}
+            onClick={() => fileInputRef.current?.click()}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
