@@ -19,6 +19,7 @@ import ImagePreviewModal from './ImagePreviewModal'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import LoadingModal from '@/components/parts/LoadingModal'
+import { PostApiImagesUploadBody } from '@/orval/generated/model'
 
 type Inputs = {
   title: string
@@ -39,7 +40,8 @@ export default function UploadForm() {
   } = useForm<Inputs>()
 
   const uploadImageMutation = useMutation({
-    mutationFn: postApiImagesUpload,
+    mutationFn: (req: PostApiImagesUploadBody) =>
+      postApiImagesUpload(req, { timeout: 40000 }),
   })
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
