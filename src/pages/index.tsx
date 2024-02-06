@@ -1,5 +1,6 @@
 import DefaultLayout from '@/components/layouts/default'
 import SearchBar from '@/components/parts/SearchBar'
+import { getApiImages } from '@/orval/generated/images/images'
 import {
   Box,
   Card,
@@ -9,11 +10,15 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
 import { ReactElement } from 'react'
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 export default function Top() {
+  const { data, isPending } = useQuery({
+    queryKey: ['images'],
+    queryFn: getApiImages,
+  })
+
   return (
     <>
       <Box
@@ -28,8 +33,8 @@ export default function Top() {
       </Box>
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={0.3}>
-          {cards.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
+          {data?.map((image) => (
+            <Grid item key={image.id} xs={12} sm={6} md={4}>
               <Card
                 sx={{
                   height: '100%',
@@ -42,7 +47,7 @@ export default function Top() {
                   sx={{
                     pt: '56.25%',
                   }}
-                  image="https://source.unsplash.com/random?wallpapers"
+                  image={image.url}
                 />
                 <CardContent sx={{ flexGrow: 1, py: 2 }}>
                   <Typography variant="h5" component="h2">
