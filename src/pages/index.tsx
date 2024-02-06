@@ -3,13 +3,13 @@ import SearchBar from '@/components/parts/SearchBar'
 import { getApiImages } from '@/orval/generated/images/images'
 import {
   Box,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
-  Grid,
-  Typography,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
 } from '@mui/material'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { useQuery } from '@tanstack/react-query'
 import { ReactElement } from 'react'
 
@@ -31,31 +31,37 @@ export default function Top() {
           <SearchBar></SearchBar>
         </Container>
       </Box>
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={0.3}>
-          {data?.map((image) => (
-            <Grid item key={image.id} xs={12} sm={6} md={4}>
-              <Card
+      <Container sx={{ py: 8 }} maxWidth={false}>
+        <ImageList variant="masonry" cols={3} gap={4}>
+          {(data ?? []).map((image) => (
+            <ImageListItem key={image.id}>
+              <img
+                srcSet={`${image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                src={`${image.url}?w=248&fit=crop&auto=format`}
+                alt={image.title}
+                loading="lazy"
+                style={{ backgroundColor: 'white' }}
+              />
+              <ImageListItemBar
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
+                  background:
+                    'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)',
                 }}
-              >
-                <CardMedia
-                  component="div"
-                  sx={{
-                    pt: '56.25%',
-                  }}
-                  image={image.url}
-                />
-                <CardContent sx={{ flexGrow: 1, py: 2 }}>
-                  <Typography variant="h6">{image.title}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+                title={image.title}
+                position="top"
+                actionIcon={
+                  <IconButton
+                    sx={{ color: 'white' }}
+                    aria-label={`star ${image.title}`}
+                  >
+                    <FavoriteBorderIcon />
+                  </IconButton>
+                }
+                actionPosition="left"
+              />
+            </ImageListItem>
           ))}
-        </Grid>
+        </ImageList>
       </Container>
     </>
   )
