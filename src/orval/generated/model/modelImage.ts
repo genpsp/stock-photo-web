@@ -6,6 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface EchoHTTPError {
-  message?: unknown
+export interface ModelImage {
+  createdAt?: string
+  id?: number
+  title?: string
+  updatedAt?: string
+  url?: string
 }
