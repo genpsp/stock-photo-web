@@ -2,16 +2,19 @@ import { postApiImagesUpload } from '@/orval/generated/images/images'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import CloseIcon from '@mui/icons-material/Close'
 import {
+  Alert,
+  AlertTitle,
   Box,
   Button,
   Grid,
   IconButton,
   InputAdornment,
+  Snackbar,
   TextField,
   css,
 } from '@mui/material'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ImagePreviewModal from './ImagePreviewModal'
 import { useMutation } from '@tanstack/react-query'
@@ -29,6 +32,7 @@ export default function UploadForm() {
   const [fileName, setFileName] = useState('')
   const [imageData, setImageData] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const {
     register,
     handleSubmit,
@@ -65,6 +69,10 @@ export default function UploadForm() {
     mutationFn: postApiImagesUpload,
     onError: (e) => console.log(e),
   })
+
+  useEffect(() => {
+    setSnackbarOpen(uploadImageMutation.isError)
+  }, [uploadImageMutation.isError])
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const file: File | null = data.file && data.file[0]
@@ -168,6 +176,18 @@ export default function UploadForm() {
           </Box>
         </Grid>
       </Grid>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        onClose={(_, reason) =>
+          reason !== 'clickaway' && setSnackbarOpen(false)
+        }
+      >
+        <Alert severity="warning" variant="filled" sx={{ width: '100%' }}>
+          サーバーでエラーが発生しました
+        </Alert>
+      </Snackbar>
       <ImagePreviewModal
         isOpen={modalOpen}
         handleClose={() => setModalOpen(false)}
@@ -182,7 +202,7 @@ export default function UploadForm() {
       <LoadingModal
         isLoading={uploadImageMutation.isPending}
         isSuccess={uploadImageMutation.isSuccess}
-        closeCallback={() => router.push('/')}
+        closeCallback={() => uploadImageMutation.isSuccess && router.push('/')}
       />
     </Box>
   )
