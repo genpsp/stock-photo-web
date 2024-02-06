@@ -50,9 +50,7 @@ export default function Top() {
                   image={image.url}
                 />
                 <CardContent sx={{ flexGrow: 1, py: 2 }}>
-                  <Typography variant="h5" component="h2">
-                    Image
-                  </Typography>
+                  <Typography variant="h6">{image.title}</Typography>
                 </CardContent>
               </Card>
             </Grid>
