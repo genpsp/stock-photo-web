@@ -1,3 +1,4 @@
+import { auth } from '@/lib/firebase/init'
 import {
   Box,
   Button,
@@ -7,10 +8,29 @@ import {
   Link,
   TextField,
 } from '@mui/material'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function SigninForm() {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const email = data.get('email') as string
+    const password = data.get('password') as string
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //Signed in
+        const user = userCredential.user
+        console.log('サインインしました：', user)
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+      })
+  }
+
   return (
-    <Box component="form" noValidate sx={{ mt: 1 }}>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <TextField
         margin="normal"
         required
