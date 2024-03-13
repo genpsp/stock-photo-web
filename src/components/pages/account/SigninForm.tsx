@@ -21,6 +21,7 @@ export default function SigninForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { isValid, errors },
   } = useForm<Inputs>({ mode: 'onChange' })
 
@@ -31,6 +32,14 @@ export default function SigninForm() {
       })
       .catch((error) => {
         console.log('サインインエラー', error.message)
+        setError('email', {
+          type: 'manual',
+          message: 'メールアドレスまたはパスワードが違っています',
+        })
+        setError('password', {
+          type: 'manual',
+          message: 'メールアドレスまたはパスワードが違っています',
+        })
       })
   }
 
