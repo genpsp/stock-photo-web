@@ -1,4 +1,3 @@
-import { app } from '@/lib/firebase/init'
 import '@/styles/globals.css'
 import theme from '@/styles/theme'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -17,7 +16,6 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const firebaseApp = app
   const queryClient = new QueryClient()
   const getLayout = Component.getLayout ?? ((page) => page)
 

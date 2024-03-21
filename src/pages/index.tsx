@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ReactElement } from 'react'
 
 export default function Top() {
-  const { data, isPending } = useQuery({
+  const { data } = useQuery({
     queryKey: ['images'],
     queryFn: getApiImages,
   })

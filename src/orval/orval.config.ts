@@ -15,6 +15,7 @@ export default defineConfig({
           name: 'customAxiosInstance',
         },
       },
+      tslint: true,
     },
     hooks: {
       afterAllFilesWrite: 'prettier --write',
