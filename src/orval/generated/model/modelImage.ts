@@ -5,11 +5,18 @@
  * StockPhoto API ドキュメント
  * OpenAPI spec version: 1.0
  */
+import type { EnumImageApprovalStatus } from './enumImageApprovalStatus'
+import type { GormDeletedAt } from './gormDeletedAt'
 
 export interface ModelImage {
+  approvalStatus?: EnumImageApprovalStatus
   createdAt?: string
+  deletedAt?: GormDeletedAt
+  detailUrl?: string
   id?: number
+  purchaseUrl?: string
+  thumbnailUrl?: string
   title?: string
   updatedAt?: string
-  url?: string
+  userId?: number
 }

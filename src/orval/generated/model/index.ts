@@ -7,5 +7,7 @@
  */
 
 export * from './echoHTTPError'
+export * from './enumImageApprovalStatus'
+export * from './gormDeletedAt'
 export * from './modelImage'
 export * from './postApiImagesUploadBody'
