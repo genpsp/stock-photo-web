@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "api:gen": "orval --config src/orval/orval.config.ts --clean src/orval/orval.config.ts",
-    "api:fetch": "gh api -H 'Accept: application/vnd.github.v3.raw' 'repos/genpsp/stock-photo-api/contents/docs/swagger.yaml?ref=main' > src/orval/swagger.yaml && prettier --write src/orval/swagger.yaml"
+    "api:fetch": "gh api -H 'Accept: application/vnd.github.v3.raw' 'repos/genpsp/stock-photo-api/contents/services/app/docs/swagger.yaml?ref=main' > src/orval/swagger.yaml && prettier --write src/orval/swagger.yaml"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",

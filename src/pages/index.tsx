@@ -36,8 +36,8 @@ export default function Top() {
           {(data ?? []).map((image) => (
             <ImageListItem key={image.id}>
               <img
-                srcSet={`${image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                src={`${image.url}?w=248&fit=crop&auto=format`}
+                srcSet={`${image.thumbnailUrl}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                src={`${image.thumbnailUrl}?w=248&fit=crop&auto=format`}
                 alt={image.title}
                 loading="lazy"
                 style={{ backgroundColor: 'white' }}
